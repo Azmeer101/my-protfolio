@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Azmeer - Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Poppins:wght@700&display=swap" rel="stylesheet">
+    <style>
+        /* Rotating gradient background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, #00FFFF, #FF00FF, #00FFFF, #FF00FF);
+            background-size: 400% 400%;
+            z-index: -1;
+            animation: rotateBackground 15s linear infinite;
+            transform: translateZ(0);
+        }
+        @keyframes rotateBackground {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: transparent;
+            color: #E0E0E0;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+        h1, h2, h3 {
+            font-family: 'Poppins', sans-serif;
+        }
+        a {
+            text-decoration: none;
+            color: #00FFFF;
+        }
+        /* Enhanced 3D Button */
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: #00FFFF;
+            color: #121212;
+            border-radius: 8px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+            transform-style: preserve-3d;
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(0, 255, 255, 0.2);
+        }
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(100%);
+            transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+            z-index: 1;
+        }
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: -40%;
+            left: -110%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+            transform: rotate(45deg);
+            transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+            opacity: 0;
+        }
+        .btn:hover {
+            transform: perspective(800px) translateY(-8px) translateZ(40px) rotateX(10deg) rotateY(-10deg);
+            box-shadow: 0 20px 30px rgba(0, 0, 0, 0.4), 0 0 30px rgba(0, 255, 255, 0.8);
+            color: #000;
+            background-color: #00FFFF;
+        }
+        .btn:hover::before {
+            transform: translateY(0);
+        }
+        .btn:hover::after {
+            left: 100%;
+            opacity: 0.8;
+            transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        .btn span {
+            position: relative;
+            z-index: 2;
+            display: inline-block;
+            transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        .btn:hover span {
+            transform: translateY(-2px);
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+            letter-spacing: 1px;
+        }
+        .btn:active {
+            transform: perspective(800px) translateY(2px) translateZ(10px) scale(0.98);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2), 0 0 10px rgba(0, 255, 255, 0.4);
+        }
+        header {
+            background-color: rgba(18, 18, 18, 0.9);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+        nav ul { list-style: none; display: flex; justify-content: center; }
+        nav ul li { margin: 0 15px; position: relative; transition: transform 0.3s; perspective: 1000px; }
+        nav ul li a {
+            padding: 15px 0; display: block; color: #00FFFF;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+        }
+        nav ul li a::after {
+            content: '';
+            position: absolute; width: 0; height: 2px;
+            bottom: 10px; left: 50%;
+            background: #00FF00;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform: translateX(-50%);
+            opacity: 0;
+            box-shadow: 0 0 10px #00FF00;
+        }
+        nav ul li a:hover {
+            color: #00FF00;
+            text-shadow: 0 0 8px #00FF00;
+            transform: translateY(-3px) scale(1.1);
+        }
+        nav ul li a:hover::after {
+            width: 100%; opacity: 1;
+        }
+        #home { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center;
+                color: #E0E0E0; text-align: center; perspective: 1000px; position: relative; z-index: 1; }
+        #home h1 { font-size: 3.5em; margin-bottom: 15px; animation: spinIn 1s ease-out forwards; }
+        #home p  { font-size: 1.6em; margin-bottom: 25px; animation: spinIn 1.2s ease-out forwards; }
+        #home .btn { animation: spinIn 1.4s ease-out forwards; }
+        @keyframes spinIn { from { opacity: 0; transform: perspective(1000px) rotateX(-360deg) scale(0.5);} to { opacity:1; transform: perspective(1000px) rotateX(0deg) scale(1);} }
+        #about { padding:80px 20px; background-color: rgba(18,18,18,0.9); position: relative; z-index:1; }
+        .about-content { display:flex; justify-content: space-between; align-items: center; max-width:1000px; margin:0 auto;
+                         opacity:0; transform: translateY(50px); transition: all 0.8s cubic-bezier(0.25,0.46,0.45,0.94); }
+        .about-content.visible { opacity:1; transform: translateY(0);}        
+        .about-image img { max-width:100%; border-radius:50%; transition: transform 0.5s ease-in-out; box-shadow:0 0 20px rgba(0,255,255,0.3);}        
+        .about-image img:hover { transform: rotateZ(10deg) scale(1.1); box-shadow: 0 0 30px rgba(0,255,255,0.6);}        
+        #portfolio { padding:80px 20px; background:rgba(26,26,26,0.9); position:relative; z-index:1;}        
+        .project-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(300px,1fr)); gap:25px; max-width:1000px; margin:0 auto;}        
+        .project-card { position: relative; height: 300px; transform-style: preserve-3d; transition: transform 0.6s ease-in-out; }
+        .project-card .front, .project-card .back { position: absolute; top: 0; left: 0; width: 100%; height: 100%; backface-visibility: hidden; background-color: #1a1a1a; border: 1px solid #00FFFF; border-radius: 8px; overflow: hidden; }
+        .project-card .front { z-index: 2; transform: rotateY(0deg); }
+        .project-card .back { transform: rotateY(180deg); padding: 20px; box-sizing: border-box; overflow-y: auto; }
+        .project-card.flipped { transform: rotateY(180deg); }
+        .project-card img { width: 100%; height: 200px; object-fit: cover; transition: transform 0.3s; }
+        .project-card .front:hover img { transform: scale(1.05); }
+        #contact { padding:80px 20px; background-color: rgba(18,18,18,0.9); position: relative; z-index:1;}        
+        #contact form { max-width:600px; margin:0 auto; display:flex; flex-direction:column;
+                        opacity:0; transform: perspective(1000px) translateY(100px) rotateX(-20deg);
+                        transition: all 0.8s ease-in-out;}        
+        #contact form.visible { opacity:1; transform: perspective(1000px) translateY(0) rotateX(0deg);}        
+        #contact input, #contact textarea { margin-bottom:15px; padding:12px; background-color:#1a1a1a; color:#E0E0E0;
+                                          border:1px solid #00FFFF; border-radius:5px; transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;}        
+        #contact input:focus, #contact textarea:focus { transform: perspective(1000px) translateZ(15px) rotateX(5deg); box-shadow:0 0 15px #00FFFF;}        
+        #contact button { align-self: flex-start; }        
+        /* Updated social icons */
+        #social-media { padding:50px 20px; background-color: rgba(18,18,18,0.9); text-align:center; }
+        .social-links { display:flex; justify-content:center; gap:20px; }
+        .social-links a { display:block; width:50px; height:50px; position:relative; transition: transform 0.4s ease-in-out; }
+        .social-links a:hover { transform: perspective(1000px) rotateY(360deg) scale(1.2); }
+        .linkedin-logo { background-color:#0077B5; border-radius:5px; }
+        .linkedin-logo::before { content:'in'; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+                                 color:#fff; font-size:18px; font-weight:bold; }
+        .github-logo { background-color:#fff; border-radius:50%; }
+        .github-logo::before { content:''; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+                                width:30px; height:30px; background:url('https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png') no-repeat center center;
+                                background-size:contain; }
+        .instagram-logo { background-color:#fff; border-radius:50%; }
+        .instagram-logo::before { content:''; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+                                   width:30px; height:30px; background:url('https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png') no-repeat center center;
+                                   background-size:contain; }
+        footer { background-color: rgba(18,18,18,0.9); color:#E0E0E0; text-align:center; padding:25px; position:relative; z-index:1; }
+        #back-to-top { position:fixed; bottom:25px; right:25px; padding:12px 18px; background-color:#00FFFF; color:#121212;
+                         border:none; border-radius:50%; cursor:pointer; display:none; transition:all 0.3s ease-in-out; box-shadow:0 0 10px rgba(0,255,255,0.5);}        
+        #back-to-top:hover { transform: scale(1.2) rotateZ(90deg); box-shadow:0 0 20px #00FFFF; }
+        @media (max-width:768px) {
+            nav ul { flex-direction:column; align-items:center; }
+            nav ul li { margin:10px 0; }
+            .about-content { flex-direction:column; }
+            .project-grid { grid-template-columns:1fr; }
+            #home h1 { font-size:2.5em; }
+            #home p { font-size:1.3em; }
+            .project-card { height: 400px; }
+        }
+        @media (max-width: 480px) {
+            #home h1 { font-size: 2em; }
+            #home p { font-size: 1.1em; }
+            .btn { padding: 10px 20px; }
+            .about-image img { width: 150px; }
+            .about-text p { font-size: 0.9em; }
+            .project-card { height: 350px; }
+            .project-card img { height: 150px; }
+            .project-card h3 { font-size: 1.2em; }
+            .project-card p { font-size: 0.9em; }
+            #contact input, #contact textarea { padding: 10px; }
+            #contact button { padding: 10px 20px; }
+            .social-links a { width: 40px; height: 40px; }
+            .github-logo::before, .instagram-logo::before { width: 24px; height: 24px; }
+            .linkedin-logo::before { font-size: 14px; }
+            .social-links { gap: 15px; }
+            #back-to-top { padding: 15px 20px; }
+            nav ul li { margin: 5px 0; }
+            nav ul li a { font-size: 0.9em; }
+            #about, #portfolio, #contact, #social-media { padding: 50px 15px; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#portfolio">Portfolio</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section id="home">
+        <h1>Azmeer</h1>
+        <p>Web Developer & Designer</p>
+        <a href="#portfolio" class="btn"><span>View My Work</span></a>
+    </section>
+    <section id="about">
+        <h2>About Me</h2>
+        <div class="about-content">
+            <div class="about-text">
+                <p>Hi, I'm Azmeer, a passionate web developer with experience in creating dynamic and responsive websites. I specialize in front-end development using HTML, CSS, and JavaScript.</p>
+                <p>I have a degree in Computer Science and have worked on various projects ranging from personal blogs to e-commerce platforms.</p>
+            </div>
+            <div class="about-image">   
+                <img src="thd.jpg" alt="Azmeer">   
+            </div>
+        </div>
+    </section>
+    <section id="portfolio">
+        <h2>My Projects</h2>
+        <div class="project-grid">
+            <div class="project-card">
+                <div class="front">
+                    <img src="thd.jpg" alt="Project 1">
+                    <h3>Project 1</h3>
+                    <p>A brief description of the project.</p>
+                    <a href="#" class="btn"><span>View Project</span></a>
+                </div>
+                <div class="back">
+                    <h3>Project 1 Details</h3>
+                    <p>More information about the project goes here.</p>
+                </div>
+            </div>
+            <!-- Add more project cards as needed -->
+        </div>
+    </section>
+    <section id="contact">
+        <h2>Contact Me</h2>
+        <form id="contact-form">
+            <input type="text" name="name" placeholder="Your Name" required>
+            <input type="email" name="email" placeholder="Your Email" required>
+            <textarea name="message" placeholder="Your Message" required></textarea>
+            <button type="submit" class="btn"><span>Send Message</span></button>
+        </form>
+    </section>
+    <section id="social-media">
+        <h2>Social Medias</h2>
+        <div class="social-links">
+            <a href="#" class="linkedin-logo"></a>
+            <a href="#" class="github-logo"></a>
+            <a href="#" class="instagram-logo"></a>
+        </div>
+    </section>
+    <footer>
+        <p>© 2023 Azmeer. All rights reserved.</p>
+    </footer>
+    <button id="back-to-top">Top</button>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Smooth scrolling
+            document.querySelectorAll('a[href^="#"]').forEach(link => {
+                link.addEventListener('click', e => {
+                    e.preventDefault();
+                    document.querySelector(link.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+                });
+            });
+            // Form submission
+            const form = document.getElementById('contact-form');
+            form.addEventListener('submit', e => {
+                e.preventDefault();
+                alert('Thank you for your message!');
+                form.reset();
+            });
+            // Scroll animations
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+            }, { threshold: 0.2 });
+            document.querySelectorAll('#portfolio .project-card, #contact form, #about .about-content').forEach(el => observer.observe(el));
+            // Card flip
+            document.querySelectorAll('.project-card').forEach(card => card.addEventListener('click', () => card.classList.toggle('flipped')));
+            // Mouse tilt for home
+            const home = document.getElementById('home');
+            document.addEventListener('mousemove', e => {
+                const x = (e.clientX / window.innerWidth - 0.5) * 20;
+                const y = (e.clientY / window.innerHeight - 0.5) * 20;
+                home.style.transform = `perspective(1000px) rotateX(${y}deg) rotateY(${x}deg)`;
+            });
+            // Back-to-top
+            const backToTop = document.getElementById('back-to-top');
+            window.addEventListener('scroll', () => backToTop.style.display = window.scrollY > 200 ? 'block' : 'none');
+            backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+        });
+    </script>
+</body>
+</html>
